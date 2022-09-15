@@ -1,0 +1,35 @@
+<div class="container" style="padding-top: 2rem;">
+  <p-table [value]="documents" sortMode="multiple">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="Id">id <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="Name">Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="Size">Size <p-sortIcon field="size"></p-sortIcon>
+        </th>
+        <th pSortableColumn="Versions">Versions <p-sortIcon field="versions"></p-sortIcon>
+        </th>
+        <th pSortableColumn="Download">Download 
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-document>
+      <tr>
+        <td>{{document.id}}</td>
+        <td>{{document.name}}</td>
+        <td>{{document.size/(1024*1024)}} mB</td>
+        <td>
+          <select class="form-control" [(ngModel)]="selectedVersion">
+            <option *ngFor="let version of document.versions" [value]="version">
+              {{ version }}
+            </option>
+          </select>
+        </td>
+        <td><button class="btn btn-info btn-sm" (click)="download(document.documentId)">
+          <ng-content></ng-content>Download
+        </button></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
