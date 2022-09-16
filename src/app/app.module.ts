@@ -24,6 +24,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -53,8 +54,8 @@ import {FormsModule} from '@angular/forms';
     RatingModule,
     FormsModule,
     TreeSelectModule,
-    PanelModule
-
+    PanelModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

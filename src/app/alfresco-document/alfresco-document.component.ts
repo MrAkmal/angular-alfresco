@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import b64toBlob from 'b64-to-blob';
-import * as saveAs from 'file-saver';
 import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
 import { AlfrescoDocumentDTO } from './alfresco-document-dto';
+
+import fileDownload from 'js-file-download';
 import axios from "axios";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-alfresco-document',
@@ -16,7 +17,7 @@ export class AlfrescoDocumentComponent implements OnInit {
 
   selectedVersion: any;
 
-  constructor(private alfrescoDocAPI: AlfrescoDocumentApi) { }
+  constructor(private http:HttpClient,private alfrescoDocAPI: AlfrescoDocumentApi) { }
 
   ngOnInit() {
     this.getAll();
@@ -34,23 +35,74 @@ export class AlfrescoDocumentComponent implements OnInit {
 
   download(documentId: string) {
     console.log("version: " + this.selectedVersion);
-    axios.get('http://localhost:7070/v1/alfresco/document' + '/' + documentId + '/' + this.selectedVersion)
-      .then(res => {
 
-        console.log(res);
-        let blob: Blob = res.data as Blob;
-        let contentType = res.headers['content-type'];
-        let fileName = res.headers['content-disposition']?.split(';')[1].split('=')[1];
 
-        console.log(contentType);
-        console.log(fileName);
+    this.downloadFile(documentId);
+    // axios.get('http://localhost:7070/v1/alfresco/document' + '/' + documentId + '/' + this.selectedVersion,{
+    //   "responseType": 'blob'
+    // })
+    //   .then(res => {
 
-        const blo = b64toBlob(res.data, contentType);
-        saveAs(blo, fileName);
+    //     var filename = "";
+    //     var disposition = res.headers['Content-Disposition'];
+    //     if (disposition && disposition.indexOf('attachment') !== -1) {
+    //         var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+    //         var matches = filenameRegex.exec(disposition);
+    //         if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+    //     }
 
-      }).catch(err => {
-        console.log(err);
-      })
+
+    //     let contentType = res.headers['content-type'];
+
+    //     console.log(res.headers)
+    //     console.log(contentType);
+    //     let fileName = res.headers['file-name'];
+    //     console.log(fileName);
+        
+    //     fileDownload(res.data,fileName);
+    //   }).catch(err => {
+    //     console.log(err);
+    //   })
   }
+
+
+
+  downloadFile(documentId: string){
+
+    const baseUrl = 'http://localhost:7070/v1/alfresco/document' + '/' + documentId + '/' + this.selectedVersion;
+
+
+    this.http.get(baseUrl ,{responseType: 'blob' }).subscribe(
+        (response) =>{
+
+
+          // var filename = "";
+          // var disposition = response.headers.get('Content-Disposition');
+          // if (disposition && disposition.indexOf('attachment') !== -1) {
+          //     var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          //     var matches = filenameRegex.exec(disposition);
+          //     if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+          // }
+
+
+          // let someee = response.headers.get('file-name');
+          
+          // console.log(someee);
+
+            let dataType = response.type;
+            let binaryData = [];
+            binaryData.push(response);
+            let downloadLink = document.createElement('a');
+            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+            if ("filename")
+                downloadLink.setAttribute('download',"filename");
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+        }
+    )
+}
+
+
+
 
 }
