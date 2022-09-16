@@ -1,0 +1,54 @@
+<tr>
+  <td colspan="5">
+    <div class="p-p-3">
+      <p-table [value]="folders" dataKey="id">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="Id">Expand</th>
+            <th pSortableColumn="Name">Name</th>
+            <th pSortableColumn="Settings" colspan="2">Settings</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-folder let-expanded="expanded">
+          <tr>
+            <td>
+              <button
+                type="button"
+                pButton
+                pRipple
+                [pRowToggler]="folder"
+                class="p-button-text p-button-rounded p-button-plain"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+              ></button>
+            </td>
+            <td>{{ folder.name }}</td>
+
+            <td>
+              <app-alfresco-update-folder
+                [id]="folder.folderId"
+              ></app-alfresco-update-folder>
+            </td>
+            <td>
+              <button
+                (click)="delete(folder.folderId)"
+                class="btn btn-outline-danger btn-sm"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">There are no subfolders for this product yet.</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-folder>
+          <app-alfresco-list-folder
+            [folders]="folder.subFolders"
+          ></app-alfresco-list-folder>
+        </ng-template>
+      </p-table>
+    </div>
+  </td>
+</tr>

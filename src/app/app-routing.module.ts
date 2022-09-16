@@ -9,7 +9,7 @@ const routes: Routes = [
     component:AlfrescoDocumentComponent
   },
   {
-    path:"folders",
+    path:"",
     component:AlfrescoFolderComponent
   }
 

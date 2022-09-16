@@ -1,0 +1,33 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Folder Update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="folderForm" *ngIf="folderForm">
+      <div class="mb-3">
+        <label for="name">Name</label>
+        <input
+          class="form-control"
+          type="text"
+          id="name"
+          [(ngModel)]="folder.name"
+          formControlName="name"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="update()">
+      Save
+    </button>
+  </div>
+</ng-template>
+<button class="btn btn-outline-info btn-sm" (click)="open(content)">
+  Edit
+</button>

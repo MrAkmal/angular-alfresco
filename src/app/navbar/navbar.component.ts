@@ -18,11 +18,13 @@ export class NavbarComponent implements OnInit {
     this.items = [
       {
         label: 'Folders',
-        routerLink:'/folders'
+        routerLink:'/',
+        routerLinkActiveOptions: { exact: true }
       },
       {
         label: 'Documents',
-        routerLink:'/documents'
+        routerLink:'/documents',
+        routerLinkActiveOptions: { exact: true }
       }
     ];
   }
