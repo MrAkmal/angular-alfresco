@@ -1,4 +1,7 @@
 <div class="container" style="padding-top: 2rem">
+  <app-alfresco-document-create></app-alfresco-document-create>
+  <br />
+  <br />
   <p-table [value]="documents" sortMode="multiple">
     <ng-template pTemplate="header">
       <tr>
@@ -13,6 +16,7 @@
           Versions <p-sortIcon field="versions"></p-sortIcon>
         </th>
         <th pSortableColumn="Download">Download</th>
+        <th pSortableColumn="Settings" colspan="2">Settings</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-document>
@@ -28,11 +32,17 @@
           </select>
         </td>
         <td>
+          <app-download-document
+            [documentId]="document.documentId"
+            [selectedVersion]="selectedVersion"
+          ></app-download-document>
+        </td>
+        <td>
           <button
-            class="btn btn-info btn-sm"
-            (click)="download(document.documentId)"
+            class="btn btn-outline-danger btn-sm"
+            (click)="delete(document.documentId)"
           >
-            Download
+            Delete
           </button>
         </td>
       </tr>

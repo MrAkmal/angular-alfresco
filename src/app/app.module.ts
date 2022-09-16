@@ -8,7 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MenubarModule } from 'primeng/menubar';
 import { AlfrescoDocumentComponent } from './alfresco-document/alfresco-document.component';
 import { AlfrescoFolderComponent } from './alfresco-folder/alfresco-folder.component';
-import {  ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
@@ -21,33 +21,19 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { TreeSelectModule } from 'primeng/treeselect';
-<<<<<<< HEAD
-import {ButtonModule} from 'primeng/button';
-import {PanelModule} from 'primeng/panel';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-=======
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { FormsModule } from '@angular/forms';
-
-
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToolbarModule } from 'primeng/toolbar';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { HttpClientModule } from '@angular/common/http';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { AlfrescoCreateFolderComponent } from './alfresco-folder/components/alfresco-create-folder/alfresco-create-folder.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastComponent } from './toast/toast.component';
-import { AlfrescoUpdateFolderComponent } from './alfresco-folder/components/alfresco-update-folder/alfresco-update-folder.component';
-import { AlfrescoListFolderComponent } from './alfresco-folder/components/alfresco-list-folder/alfresco-list-folder.component';
 import { AlfrescoFolderDocumentListComponent } from './alfresco-folder/components/alfresco-folder-document-list/alfresco-folder-document-list.component';
->>>>>>> f352a71a614052a8fb1d28b00dc155274302c963
-
+import { AlfrescoListFolderComponent } from './alfresco-folder/components/alfresco-list-folder/alfresco-list-folder.component';
+import { AlfrescoUpdateFolderComponent } from './alfresco-folder/components/alfresco-update-folder/alfresco-update-folder.component';
+import { ToastComponent } from './toast/toast.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AlfrescoDocumentCreateComponent } from './alfresco-document/components/alfresco-document-create/alfresco-document-create.component';
+import { DownloadDocumentComponent } from './alfresco-document/components/download-document/download-document.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +45,9 @@ import { AlfrescoFolderDocumentListComponent } from './alfresco-folder/component
     ToastComponent,
     AlfrescoUpdateFolderComponent,
     AlfrescoListFolderComponent,
-    AlfrescoFolderDocumentListComponent
+    AlfrescoFolderDocumentListComponent,
+    AlfrescoDocumentCreateComponent,
+    DownloadDocumentComponent
 
   ],
   imports: [
@@ -68,7 +56,7 @@ import { AlfrescoFolderDocumentListComponent } from './alfresco-folder/component
     AccordionModule,
     MenubarModule,
     FormsModule,
-        ReactiveFormsModule,
+    ReactiveFormsModule,
     TableModule,
     CalendarModule,
     SliderModule,
@@ -84,31 +72,8 @@ import { AlfrescoFolderDocumentListComponent } from './alfresco-folder/component
     FormsModule,
     TreeSelectModule,
     PanelModule,
-<<<<<<< HEAD
-    HttpClientModule
-=======
-    TableModule,
-    CalendarModule,
-    SliderModule,
-    DialogModule,
-    MultiSelectModule,
-    ContextMenuModule,
-    DropdownModule,
-    ButtonModule,
-    ToastModule,
-    InputTextModule,
-    ProgressBarModule,
-    FileUploadModule,
-    ToolbarModule,
-    RatingModule,
-    FormsModule,
-    RadioButtonModule,
-    InputNumberModule,
-    ConfirmDialogModule,
-    InputTextareaModule,
+    HttpClientModule,
     NgbModule
-
->>>>>>> f352a71a614052a8fb1d28b00dc155274302c963
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

@@ -40,13 +40,16 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="5">There are no subfolders for this product yet.</td>
+            <td colspan="5">There are no subfolders for this folder yet.</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-folder>
           <app-alfresco-list-folder
             [folders]="folder.subFolders"
           ></app-alfresco-list-folder>
+          <!-- <app-alfresco-folder-document-list
+            [documents]="folder.documents"
+          ></app-alfresco-folder-document-list> -->
         </ng-template>
       </p-table>
     </div>

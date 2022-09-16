@@ -63,7 +63,7 @@ export class AlfrescoFolderComponent implements OnInit {
         parentId: res[i].parentId,
         folderId: res[i].folderId,
         subFolders: this.getSubFolders(res[i].folderId),
-        documents: this.getAllDocuments(res[i].folderId)
+        documents: []
       });
 
     }
@@ -77,15 +77,15 @@ export class AlfrescoFolderComponent implements OnInit {
       .then(res => {
         if (res != null) {
           for (let i = 0; i < res.length; i++) {
-
             data.push({
               id: res[i].id,
               name: res[i].name,
               parentId: res[i].parentId,
               folderId: res[i].folderId,
               subFolders: this.getSubFolders(res[i].folderId),
-              documents: this.getAllDocuments(res[i].folderId)
+              documents: []
             });
+
 
           }
         }
@@ -95,30 +95,35 @@ export class AlfrescoFolderComponent implements OnInit {
     return data;
   }
 
-  getAllDocuments(id: string): AlfrescoDocumentDTO[] {
+  getAllDocuments(id: number): AlfrescoDocumentDTO[] {
     let data: AlfrescoDocumentDTO[] = [];
     this.alfrescoDocAPI.getDocumentByFolderId(id)
       .then(res => {
         if (res != null) {
           data = res;
+          console.log("data:", data);
         }
+      }).catch(err => {
+        console.log(err);
       });
     return data;
   }
 
   delete(id: string) {
-    this.alfrescoFolderApi.delete(id)
-      .then(res => {
+    if (window.confirm('Are you sure you want to delete this folder')) {
+      this.alfrescoFolderApi.delete(id)
+        .then(res => {
 
-        this.getMainFolder();
-        this.toastService.show('SuccessFully Deleted', {
-          classname: 'bg-danger text-light',
-          delay: 2000,
-          autohide: true
-        });
-      }).catch(err => {
-        console.log(err);
-      })
+          this.getMainFolder();
+          this.toastService.show('SuccessFully Deleted', {
+            classname: 'bg-danger text-light',
+            delay: 2000,
+            autohide: true
+          });
+        }).catch(err => {
+          console.log(err);
+        })
+    }
   }
 
 

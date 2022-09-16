@@ -1,5 +1,7 @@
+import { AlfrescoFolderComponent } from './../../alfresco-folder.component';
 import { AlfrescoFolder, AlfrescoFolderDTO } from './../../alfresco-folder-dto';
 import { Component, Input, OnInit } from '@angular/core';
+import { AlfrescoFolderApi } from 'src/app/api/alfresco-document-api/alfresco-folder-api';
 
 @Component({
   selector: 'app-alfresco-list-folder',
@@ -9,15 +11,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AlfrescoListFolderComponent implements OnInit {
 
   @Input()
-  folders:AlfrescoFolder[]=[];
-  constructor() { }
+  folders: AlfrescoFolder[] = [];
+  constructor(private alfrescoFolderApi: AlfrescoFolderComponent) { }
 
   ngOnInit(): void {
   }
 
 
   delete(id: string) {
-    
+
+    this.alfrescoFolderApi.delete(id);
   }
 
 

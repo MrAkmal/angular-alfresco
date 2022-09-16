@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
 import { AlfrescoDocumentDTO } from './alfresco-document-dto';
-<<<<<<< HEAD
 
 import fileDownload from 'js-file-download';
 import axios from "axios";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-=======
->>>>>>> f352a71a614052a8fb1d28b00dc155274302c963
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../_services/toast.service';
 
 @Component({
   selector: 'app-alfresco-document',
@@ -17,10 +16,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AlfrescoDocumentComponent implements OnInit {
 
   documents: AlfrescoDocumentDTO[] = [];
+  selectedVersion!: string;
 
-  selectedVersion: any;
-
-  constructor(private http:HttpClient,private alfrescoDocAPI: AlfrescoDocumentApi) { }
+  constructor(private http: HttpClient, private alfrescoDocAPI: AlfrescoDocumentApi, private toastService: ToastService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getAll();
@@ -36,79 +35,23 @@ export class AlfrescoDocumentComponent implements OnInit {
       })
   }
 
-  download(documentId: string) {
-<<<<<<< HEAD
-    console.log("version: " + this.selectedVersion);
 
+  delete(id: string) {
+    if (window.confirm('Are you sure you want to delete this folder')) {
+      this.alfrescoDocAPI.delete(id)
+        .then(() => {
 
-    this.downloadFile(documentId);
-    // axios.get('http://localhost:7070/v1/alfresco/document' + '/' + documentId + '/' + this.selectedVersion,{
-    //   "responseType": 'blob'
-    // })
-    //   .then(res => {
-
-    //     var filename = "";
-    //     var disposition = res.headers['Content-Disposition'];
-    //     if (disposition && disposition.indexOf('attachment') !== -1) {
-    //         var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-    //         var matches = filenameRegex.exec(disposition);
-    //         if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-    //     }
-
-
-    //     let contentType = res.headers['content-type'];
-
-    //     console.log(res.headers)
-    //     console.log(contentType);
-    //     let fileName = res.headers['file-name'];
-    //     console.log(fileName);
-        
-    //     fileDownload(res.data,fileName);
-    //   }).catch(err => {
-    //     console.log(err);
-    //   })
-=======
-
->>>>>>> f352a71a614052a8fb1d28b00dc155274302c963
+          this.getAll();
+          this.toastService.show('SuccessFully Deleted', {
+            classname: 'bg-danger text-light',
+            delay: 2000,
+            autohide: true
+          });
+        }).catch((err: any) => {
+          console.log(err);
+        })
+    }
   }
-
-
-
-  downloadFile(documentId: string){
-
-    const baseUrl = 'http://localhost:7070/v1/alfresco/document' + '/' + documentId + '/' + this.selectedVersion;
-
-
-    this.http.get(baseUrl ,{responseType: 'blob' }).subscribe(
-        (response) =>{
-
-
-          // var filename = "";
-          // var disposition = response.headers.get('Content-Disposition');
-          // if (disposition && disposition.indexOf('attachment') !== -1) {
-          //     var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-          //     var matches = filenameRegex.exec(disposition);
-          //     if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-          // }
-
-
-          // let someee = response.headers.get('file-name');
-          
-          // console.log(someee);
-
-            let dataType = response.type;
-            let binaryData = [];
-            binaryData.push(response);
-            let downloadLink = document.createElement('a');
-            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-            if ("filename")
-                downloadLink.setAttribute('download',"filename");
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-        }
-    )
-}
-
 
 
 
