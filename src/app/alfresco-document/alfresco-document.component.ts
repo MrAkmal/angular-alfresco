@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
 import { AlfrescoDocumentDTO } from './alfresco-document-dto';
+<<<<<<< HEAD
 
 import fileDownload from 'js-file-download';
 import axios from "axios";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+=======
+>>>>>>> f352a71a614052a8fb1d28b00dc155274302c963
 
 @Component({
   selector: 'app-alfresco-document',
@@ -34,6 +37,7 @@ export class AlfrescoDocumentComponent implements OnInit {
   }
 
   download(documentId: string) {
+<<<<<<< HEAD
     console.log("version: " + this.selectedVersion);
 
 
@@ -63,6 +67,9 @@ export class AlfrescoDocumentComponent implements OnInit {
     //   }).catch(err => {
     //     console.log(err);
     //   })
+=======
+
+>>>>>>> f352a71a614052a8fb1d28b00dc155274302c963
   }
 
 

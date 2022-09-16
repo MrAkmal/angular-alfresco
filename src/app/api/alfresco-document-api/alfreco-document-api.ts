@@ -8,7 +8,7 @@ import { AlfrescoDocumentDTO } from "src/app/alfresco-document/alfresco-document
 )
 export class AlfrescoDocumentApi{
 
-    baseUrl:string="http://localhost:7070/v1/alfresco/document"
+    baseUrl:string="http://localhost:9090/v1/alfresco/document"
 
     constructor(){
 
@@ -27,10 +27,21 @@ export class AlfrescoDocumentApi{
           }
     }
 
+    async getDocumentByFolderId(id:string){
+
+      try {
+          const res = await axios.get(this.baseUrl+'/documents/'+id);
+          console.log(res);
+          return res.data.data;
+        } catch (err) {
+          console.log(err);
+        }
+  }
+
     async download(documentId:string,version:string){
 
         try {
-            const res = await axios.get('http://localhost:7070/v1/alfresco/document'+'/'+documentId+'/'+version);
+            const res = await axios.get(this.baseUrl+'/'+documentId+'/'+version);
             console.log(res);
             return res.data;
           } catch (err) {
