@@ -41,6 +41,9 @@ export class DownloadDocumentComponent implements OnInit {
   }
 
   open(content: any) {
+    this.downloadForm = this.fb.group({
+      name: ''
+    });
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
@@ -49,20 +52,28 @@ export class DownloadDocumentComponent implements OnInit {
     console.log("version: " + this.selectedVersion);
     const val = this.downloadForm.value;
     if (this.selectedVersion && this.documentId && val.name) {
-      this.downloadFile(this.documentId,val.name);
+      this.downloadFile(this.documentId, val.name);
+    } else if (!val.name) {
+      this.modalService.dismissAll();
+      this.toastService.show('Please Enter Name File', {
+        classname: 'bg-danger text-light',
+        delay: 2000,
+        autohide: true
+      });
     } else {
       this.modalService.dismissAll();
-      this.toastService.show('Select Version', {
+      this.toastService.show('Please Select Version', {
         classname: 'bg-danger text-light',
         delay: 2000,
         autohide: true
       });
     }
+
   }
 
 
 
-  downloadFile(documentId: string,fileName:string) {
+  downloadFile(documentId: string, fileName: string) {
 
     const baseUrl = 'http://localhost:9090/v1/alfresco/document' + '/' + documentId + '/' + this.selectedVersion;
 

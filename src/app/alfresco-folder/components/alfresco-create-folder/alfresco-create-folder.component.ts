@@ -51,6 +51,7 @@ export class AlfrescoCreateFolderComponent implements OnInit {
           console.log("response: ", res);
           this.modalService.dismissAll();
 
+          
           this.toastService.show('SuccessFully Created', {
             classname: 'bg-success text-light',
             delay: 2000,

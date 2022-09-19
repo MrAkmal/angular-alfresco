@@ -49,7 +49,7 @@ export class AlfrescoDocumentCreateComponent implements OnInit {
   }
 
   save() {
-
+    
     const val = this.documentForm.value;
     console.log("value: ",val.folderId);
 

@@ -64,7 +64,7 @@ export class AlfrescoFolderApi {
     await axios.post(this.baseUrl,
       { name, parentFolderId })
       .then(res => {
-        console.log(res);
+        console.log("res:",res);
         return res.data;
       }).catch(err => {
         console.log(err);

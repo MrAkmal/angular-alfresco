@@ -5,37 +5,26 @@
   <p-table [value]="documents" sortMode="multiple">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Id">id <p-sortIcon field="id"></p-sortIcon></th>
-        <th pSortableColumn="Name">
-          Name <p-sortIcon field="name"></p-sortIcon>
-        </th>
-        <th pSortableColumn="Size">
-          Size <p-sortIcon field="size"></p-sortIcon>
-        </th>
-        <th pSortableColumn="Versions">
-          Versions <p-sortIcon field="versions"></p-sortIcon>
-        </th>
-        <th pSortableColumn="Download">Download</th>
+        <th pSortableColumn="Id">id</th>
+        <th pSortableColumn="Name">Name</th>
+        <th pSortableColumn="Size">Size</th>
+        <th pSortableColumn="Versions">Versions</th>
         <th pSortableColumn="Settings" colspan="2">Settings</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-document>
-      <tr>
+      <tr scope="row">
         <td>{{ document.id }}</td>
         <td>{{ document.name }}</td>
         <td>{{ document.size / (1024 * 1024) }} mB</td>
         <td>
-          <select class="form-control" [(ngModel)]="selectedVersion">
-            <option *ngFor="let version of document.versions" [value]="version">
-              {{ version }}
-            </option>
-          </select>
+          <app-alfresco-document-list [document]="document" > </app-alfresco-document-list>
         </td>
         <td>
-          <app-download-document
+          <app-alfresco-document-update
             [documentId]="document.documentId"
-            [selectedVersion]="selectedVersion"
-          ></app-download-document>
+            [documentName]="document.name"
+          ></app-alfresco-document-update>
         </td>
         <td>
           <button

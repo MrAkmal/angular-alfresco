@@ -27,6 +27,7 @@ export class AlfrescoDocumentApi {
     }
   }
 
+
   async getDocumentByFolderId(id: number) {
 
     try {
@@ -54,6 +55,22 @@ export class AlfrescoDocumentApi {
   async save(multipartFile: File, folderId: string) {
 
     await axios.post(this.baseUrl + '/?folderId=' + folderId,
+      { multipartFile },
+      {
+        headers: { "Content-Type": "multipart/form-data"}
+      })
+      .then(res => {
+        console.log(res);
+        return res.data;
+      }).catch(err => {
+        console.log(err);
+      }
+      );
+  }
+
+  async update(multipartFile: File, documentId: string) {
+
+    await axios.put(this.baseUrl + '/?documentId=' + documentId,
       { multipartFile },
       {
         headers: { "Content-Type": "multipart/form-data"}

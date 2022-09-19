@@ -34,6 +34,8 @@ import { ToastComponent } from './toast/toast.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlfrescoDocumentCreateComponent } from './alfresco-document/components/alfresco-document-create/alfresco-document-create.component';
 import { DownloadDocumentComponent } from './alfresco-document/components/download-document/download-document.component';
+import { AlfrescoDocumentUpdateComponent } from './alfresco-document/components/alfresco-document-update/alfresco-document-update.component';
+import { AlfrescoDocumentListComponent } from './alfresco-document/components/alfresco-document-list/alfresco-document-list.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { DownloadDocumentComponent } from './alfresco-document/components/downlo
     AlfrescoListFolderComponent,
     AlfrescoFolderDocumentListComponent,
     AlfrescoDocumentCreateComponent,
-    DownloadDocumentComponent
+    DownloadDocumentComponent,
+    AlfrescoDocumentUpdateComponent,
+    AlfrescoDocumentListComponent
 
   ],
   imports: [
