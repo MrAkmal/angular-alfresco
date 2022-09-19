@@ -1,0 +1,24 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="downloadForm" *ngIf="downloadForm">
+      <div class="mb-3">
+        <label for="name">FileName</label>
+        <input class="form-control" type="text" formControlName="name" />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="download()">
+      Download
+    </button>
+  </div>
+</ng-template>
+<button class="btn btn-outline-info btn-sm" (click)="open(content)">Download</button>
