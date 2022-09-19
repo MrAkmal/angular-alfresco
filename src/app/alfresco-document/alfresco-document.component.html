@@ -18,7 +18,8 @@
         <td>{{ document.name }}</td>
         <td>{{ document.size / (1024 * 1024) }} mB</td>
         <td>
-          <app-alfresco-document-list [document]="document" > </app-alfresco-document-list>
+          <app-alfresco-document-list [document]="document">
+          </app-alfresco-document-list>
         </td>
         <td>
           <app-alfresco-document-update
@@ -28,11 +29,13 @@
         </td>
         <td>
           <button
-            class="btn btn-outline-danger btn-sm"
+            pButton
+            pRipple
             (click)="delete(document.documentId)"
-          >
-            Delete
-          </button>
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+          ></button>
         </td>
       </tr>
     </ng-template>

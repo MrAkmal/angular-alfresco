@@ -23,9 +23,15 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="update()">
-      Save
-    </button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Save"
+      (click)="update()"
+      class="p-button p-button-primary p-button-sm"
+    ></button>
   </div>
 </ng-template>
-<button class="btn btn-outline-info btn-sm" (click)="open(content)">Update</button>
+<button pButton pRipple type="button" icon="pi pi-pencil" (click)="open(content)"
+class="p-button-rounded p-button-info p-button-sm"></button>

@@ -36,6 +36,8 @@ import { AlfrescoDocumentCreateComponent } from './alfresco-document/components/
 import { DownloadDocumentComponent } from './alfresco-document/components/download-document/download-document.component';
 import { AlfrescoDocumentUpdateComponent } from './alfresco-document/components/alfresco-document-update/alfresco-document-update.component';
 import { AlfrescoDocumentListComponent } from './alfresco-document/components/alfresco-document-list/alfresco-document-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { AlfrescoDocumentListComponent } from './alfresco-document/components/al
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AccordionModule,
     MenubarModule,
@@ -77,7 +80,13 @@ import { AlfrescoDocumentListComponent } from './alfresco-document/components/al
     TreeSelectModule,
     PanelModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserModule,
+    ButtonModule,
+    PanelModule,
+		FormsModule,
+    HttpClientModule,
+    TreeSelectModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
