@@ -37,7 +37,7 @@ import { DownloadDocumentComponent } from './alfresco-document/components/downlo
 import { AlfrescoDocumentUpdateComponent } from './alfresco-document/components/alfresco-document-update/alfresco-document-update.component';
 import { AlfrescoDocumentListComponent } from './alfresco-document/components/alfresco-document-list/alfresco-document-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -59,6 +59,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ConfirmDialogModule,
     AppRoutingModule,
     AccordionModule,
     MenubarModule,
