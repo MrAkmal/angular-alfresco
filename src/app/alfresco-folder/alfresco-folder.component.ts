@@ -132,8 +132,5 @@ export class AlfrescoFolderComponent implements OnInit {
     });
   }
 
-
-
-
 }
 

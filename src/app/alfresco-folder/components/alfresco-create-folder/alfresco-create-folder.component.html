@@ -1,87 +1,64 @@
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Folder Create</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-  
-  <div class="modal-body">
-    <form [formGroup]="folderForm" *ngIf="folderForm">
-      <br>
-      <div class="mb-3">
-
-        
-        <!-- <label for="name">Folder Name</label> -->
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-folder"></i></span>
-
-        
-          <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="name" > 
-            <label for="float-input">Folder name</label>
-        </span>
-          <!-- <input
-            type="text"
-            formControlName="name"
-            pInputText
-            placeholder="Folder name"
-          /> -->
-          
-        </div>
-      </div>
-      <br>
-      <div class="mb-3">
-
-
-
-        <span class="p-float-label">
-          <p-dropdown inputId="dropdown" 
-          [autoDisplayFirst]="false" 
-          [options]="folders"
-          formControlName="parentFolderId"
-          [style]="{ width: '100%' }"
-          optionValue="folderId"
-            optionLabel="name">
-          </p-dropdown>
-          <label for="dropdown">Parent folder</label>
-      </span>
-        <!-- <label for="parentFolderId">Select Folder</label>
-        <p-dropdown
-        
-          [options]="folders"
-          formControlName="parentFolderId"
-          placeholder="Select Folder"
-          [style]="{ width: '100%' }"
-          optionLabel="name"
-          optionValue="folderId"
-          [showClear]="true"
-        >
-        </p-dropdown> -->
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button
-  pButton
-  pRipple
-  type="button"
-  label="Save"
-  icon="pi pi-save"
-  (click)="save()"
-  class="p-button p-button-primary p-button-sm"
-></button>
-  </div>
-</ng-template>
 <button
+  (click)="showModalDialog()"
   pButton
   pRipple
   type="button"
   label="Add"
   icon="pi pi-plus"
-  (click)="open(content)"
   class="p-button p-button-primary p-button-sm"
 ></button>
+<p-dialog
+  header="Folder Create"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [style]="{ width: '50vw',height: '70vh' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="folderForm" *ngIf="folderForm">
+    <br />
+    <div class="mb-3">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-folder"></i></span>
+
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="text"
+            pInputText
+            formControlName="name"
+          />
+          <label for="float-input">Folder name</label>
+        </span>
+      </div>
+    </div>
+    <br />
+    <div class="mb-3">
+      <span class="p-float-label">
+        <p-dropdown
+          inputId="dropdown"
+          [autoDisplayFirst]="false"
+          [options]="folders"
+          formControlName="parentFolderId"
+          [style]="{ width: '100%' }"
+          optionValue="folderId"
+          optionLabel="name"
+        >
+        </p-dropdown>
+        <label for="dropdown">Parent folder</label>
+      </span>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Save"
+      icon="pi pi-save"
+      (click)="save()"
+      class="p-button p-button-primary p-button-sm"
+    ></button>
+  </ng-template>
+</p-dialog>

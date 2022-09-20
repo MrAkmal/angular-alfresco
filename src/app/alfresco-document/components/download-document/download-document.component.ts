@@ -24,12 +24,8 @@ export class DownloadDocumentComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-    private router: Router,
-    private alfrescoDocApi: AlfrescoDocumentApi,
-    private alfrescoFolderApi: AlfrescoFolderApi,
-    private alfrescoDoc: AlfrescoDocumentComponent, private http: HttpClient,
-    private alfrescoDocAPI: AlfrescoDocumentApi, private toastService: ToastService,
-    private modalService: NgbModal,private confirmationService: ConfirmationService, private messageService: MessageService) {
+    private http: HttpClient,
+    private messageService: MessageService) {
 
     this.downloadForm = this.fb.group({
       name: ''
@@ -40,11 +36,12 @@ export class DownloadDocumentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  open(content: any) {
+  displayModal!: boolean;
+  showModalDialog() {
+    this.displayModal = true;
     this.downloadForm = this.fb.group({
       name: ''
     });
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
 
@@ -55,15 +52,15 @@ export class DownloadDocumentComponent implements OnInit {
       this.downloadFile(this.documentId, val.name);
     }
     else if (!this.selectedVersion && !val.name) {
-      this.modalService.dismissAll();
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Select Version and type File name'});
+      this.displayModal = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Select Version and type File name' });
     }
     else if (!val.name) {
-      this.modalService.dismissAll();
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Type File Name'});
+      this.displayModal = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Type File Name' });
     } else {
-      this.modalService.dismissAll();
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Select Version'});
+      this.displayModal = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Select Version' });
     }
 
   }
@@ -90,7 +87,7 @@ export class DownloadDocumentComponent implements OnInit {
       }
     )
 
-    this.modalService.dismissAll();
-    this.messageService.add({severity:'success', summary: 'Download', detail: 'Successfully Downloaded'});
+    this.displayModal = false;
+    this.messageService.add({ severity: 'success', summary: 'Download', detail: 'Successfully Downloaded' });
   }
 }

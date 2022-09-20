@@ -1,31 +1,36 @@
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Folder Update</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="folderForm" *ngIf="folderForm">
-      <div class="mb-3">
-        <label for="name">Folder Name</label>
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-folder"></i></span>
-          <input
-            type="text"
-            [(ngModel)]="folder.name"
-            formControlName="name"
-            pInputText
-            placeholder="Folder name"
-          />
-        </div>
+<button
+  (click)="showModalDialog()"
+  pButton
+  pRipple
+  type="button"
+  icon="pi pi-pencil"
+  class="p-button-rounded p-button-primary p-button-sm"
+></button>
+<p-dialog
+  header="Folder Update"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [style]="{ width: '50vw', height: '40vh' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="folderForm" *ngIf="folderForm">
+    <div class="mb-3">
+      <label for="name">Folder Name</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-folder"></i></span>
+        <input
+          type="text"
+          [(ngModel)]="folder.name"
+          formControlName="name"
+          pInputText
+          placeholder="Folder name"
+        />
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
     <button
       pButton
       pRipple
@@ -35,13 +40,5 @@
       (click)="update()"
       class="p-button p-button-primary p-button-sm"
     ></button>
-  </div>
-</ng-template>
-<button
-  pButton
-  pRipple
-  type="button"
-  icon="pi pi-pencil"
-  (click)="open(content)"
-  class="p-button-rounded p-button-info p-button-sm"
-></button>
+  </ng-template>
+</p-dialog>
