@@ -8,23 +8,50 @@
       (click)="modal.dismiss('Cross click')"
     ></button>
   </div>
+  
   <div class="modal-body">
     <form [formGroup]="folderForm" *ngIf="folderForm">
+      <br>
       <div class="mb-3">
-        <label for="name">Folder Name</label>
+
+        
+        <!-- <label for="name">Folder Name</label> -->
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon"><i class="pi pi-folder"></i></span>
-          <input
+
+        
+          <span class="p-float-label">
+            <input id="float-input" type="text" pInputText formControlName="name" > 
+            <label for="float-input">Folder name</label>
+        </span>
+          <!-- <input
             type="text"
             formControlName="name"
             pInputText
             placeholder="Folder name"
-          />
+          /> -->
+          
         </div>
       </div>
+      <br>
       <div class="mb-3">
-        <label for="parentFolderId">Select Folder</label>
+
+
+
+        <span class="p-float-label">
+          <p-dropdown inputId="dropdown" 
+          [autoDisplayFirst]="false" 
+          [options]="folders"
+          formControlName="parentFolderId"
+          [style]="{ width: '100%' }"
+          optionValue="folderId"
+            optionLabel="name">
+          </p-dropdown>
+          <label for="dropdown">Parent folder</label>
+      </span>
+        <!-- <label for="parentFolderId">Select Folder</label>
         <p-dropdown
+        
           [options]="folders"
           formControlName="parentFolderId"
           placeholder="Select Folder"
@@ -33,7 +60,7 @@
           optionValue="folderId"
           [showClear]="true"
         >
-        </p-dropdown>
+        </p-dropdown> -->
       </div>
     </form>
   </div>

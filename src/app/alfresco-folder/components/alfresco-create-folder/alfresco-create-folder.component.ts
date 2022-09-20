@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoFolderDTO } from '../../alfresco-folder-dto';
 import { AlfrescoFolderComponent } from '../../alfresco-folder.component';
 
+
 @Component({
   selector: 'app-alfresco-create-folder',
   templateUrl: './alfresco-create-folder.component.html',
@@ -18,7 +19,9 @@ export class AlfrescoCreateFolderComponent implements OnInit {
   folderForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder,
+  constructor(
+
+    private fb: FormBuilder,
     private router: Router,
     private toastService: ToastService,
     private modalService: NgbModal,
@@ -42,7 +45,9 @@ export class AlfrescoCreateFolderComponent implements OnInit {
 
   save() {
 
+    // const val = this.folderForm.value;
     const val = this.folderForm.value;
+
     console.log("value: ", val.name, val.parentFolderId);
 
     if (val.name && val.parentFolderId != null) {

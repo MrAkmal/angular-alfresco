@@ -8,6 +8,8 @@ import { AlfrescoFolderComponent } from 'src/app/alfresco-folder/alfresco-folder
 import { AlfrescoFolderApi } from 'src/app/api/alfresco-document-api/alfresco-folder-api';
 import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoDocumentComponent } from '../../alfresco-document.component';
+import { MessageService } from 'primeng/api';
+import {FileUploadModule} from 'primeng/fileupload';
 
 @Component({
   selector: 'app-alfresco-document-create',
@@ -28,7 +30,8 @@ export class AlfrescoDocumentCreateComponent implements OnInit {
     private modalService: NgbModal,
     private alfrescoDocApi: AlfrescoDocumentApi,
     private alfrescoFolderApi: AlfrescoFolderApi,
-    private alfrescoDoc: AlfrescoDocumentComponent) {
+    private alfrescoDoc: AlfrescoDocumentComponent,
+    private messageService: MessageService) {
 
     this.documentForm = this.fb.group({
       folderId: ''
@@ -47,6 +50,8 @@ export class AlfrescoDocumentCreateComponent implements OnInit {
   onChange(event: any) {
     this.multipartFile = event.target.files[0];
   }
+
+
 
   save() {
 
