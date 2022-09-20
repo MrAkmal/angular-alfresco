@@ -1,6 +1,6 @@
 import { AlfrescoDocumentApi } from './../../../api/alfresco-document-api/alfreco-document-api';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlfrescoFolderDTO } from 'src/app/alfresco-folder/alfresco-folder-dto';
@@ -8,8 +8,9 @@ import { AlfrescoFolderComponent } from 'src/app/alfresco-folder/alfresco-folder
 import { AlfrescoFolderApi } from 'src/app/api/alfresco-document-api/alfresco-folder-api';
 import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoDocumentComponent } from '../../alfresco-document.component';
-import { MessageService } from 'primeng/api';
 import {FileUploadModule} from 'primeng/fileupload';
+import { FileUpload } from 'primeng/fileupload';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-alfresco-document-create',
@@ -48,25 +49,20 @@ export class AlfrescoDocumentCreateComponent implements OnInit {
   }
 
   onChange(event: any) {
+    console.log(event);
     this.multipartFile = event.target.files[0];
   }
 
-
-
   save() {
-
     const val = this.documentForm.value;
-    console.log("value: ", val.folderId);
 
-    if (this.multipartFile && val.folderId!=null) {
+    console.log("file: ", this.multipartFile);
+
+    if (this.multipartFile && val.folderId != null) {
       this.alfrescoDocApi.save(this.multipartFile, val.folderId)
         .then(res => {
           this.modalService.dismissAll();
-          this.toastService.show('SuccessFully Created', {
-            classname: 'bg-success text-light',
-            delay: 2000,
-            autohide: true
-          });
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Successfully Created'});
           this.alfrescoDoc.getAll();
           console.log(res);
         }).catch(err => {

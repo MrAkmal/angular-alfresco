@@ -41,6 +41,9 @@ import { FileUploadModule } from "primeng/fileupload";
 import {TreeTableModule} from 'primeng/treetable';
 import { CascadeSelectModule } from "primeng/cascadeselect";
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {RippleModule} from 'primeng/ripple';
+
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
 
 @NgModule({
   declarations: [
@@ -93,7 +96,9 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     HttpClientModule,
     TreeSelectModule,
     FileUploadModule,
-    TreeTableModule
+    TreeTableModule,
+    RippleModule,
+    ConfirmPopupModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

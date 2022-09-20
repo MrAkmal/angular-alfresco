@@ -5,7 +5,7 @@ import { AlfrescoFolder, AlfrescoFolderDTO } from './alfresco-folder-dto';
 import { ToastService } from '../_services/toast.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
-
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-alfresco-folder',
   templateUrl: './alfresco-folder.component.html',
@@ -39,10 +39,10 @@ export class AlfrescoFolderComponent implements OnInit {
     { field: 'folderId', header: 'FolderId' }
   ];
 
-  
+
 
   constructor(private alfrescoFolderApi: AlfrescoFolderApi, private toastService: ToastService,
-    private alfrescoDocAPI: AlfrescoDocumentApi) { }
+    private alfrescoDocAPI: AlfrescoDocumentApi,private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.getMainFolder();
@@ -106,21 +106,29 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
   delete(id: any) {
-    console.log("any:",id);
-    if (window.confirm('Are you sure you want to delete this folder')) {
-      this.alfrescoFolderApi.delete(id)
+
+    this.confirmationService.confirm({
+      message: "Are you sure that you want to proceed?",
+      header: 'Confirmation',
+      icon: "pi pi-exclamation-triangle",
+      accept: () => {
+        this.alfrescoFolderApi.delete(id)
         .then(res => {
 
           this.getMainFolder();
-          this.toastService.show('SuccessFully Deleted', {
-            classname: 'bg-danger text-light',
-            delay: 2000,
-            autohide: true
-          });
+          this.messageService.add({severity:'error', summary: 'Deleted', detail: 'Successfully Deleted'});
         }).catch(err => {
           console.log(err);
         })
-    }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "info",
+          summary: "Cancelled",
+          detail: "Deleteing Cancelled"
+        });
+      }
+    });
   }
 
 

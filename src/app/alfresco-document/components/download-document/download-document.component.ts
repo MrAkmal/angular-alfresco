@@ -8,7 +8,7 @@ import { AlfrescoDocumentApi } from 'src/app/api/alfresco-document-api/alfreco-d
 import { AlfrescoFolderApi } from 'src/app/api/alfresco-document-api/alfresco-folder-api';
 import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoDocumentComponent } from '../../alfresco-document.component';
-
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-download-document',
   templateUrl: './download-document.component.html',
@@ -29,7 +29,7 @@ export class DownloadDocumentComponent implements OnInit {
     private alfrescoFolderApi: AlfrescoFolderApi,
     private alfrescoDoc: AlfrescoDocumentComponent, private http: HttpClient,
     private alfrescoDocAPI: AlfrescoDocumentApi, private toastService: ToastService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,private confirmationService: ConfirmationService, private messageService: MessageService) {
 
     this.downloadForm = this.fb.group({
       name: ''
@@ -56,26 +56,14 @@ export class DownloadDocumentComponent implements OnInit {
     }
     else if (!this.selectedVersion && !val.name) {
       this.modalService.dismissAll();
-      this.toastService.show('Please Enter File Name and Select Version', {
-        classname: 'bg-danger text-light',
-        delay: 2000,
-        autohide: true
-      });
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Select Version and type File name'});
     }
     else if (!val.name) {
       this.modalService.dismissAll();
-      this.toastService.show('Please Enter File Name', {
-        classname: 'bg-danger text-light',
-        delay: 2000,
-        autohide: true
-      });
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Type File Name'});
     } else {
       this.modalService.dismissAll();
-      this.toastService.show('Please Select Version', {
-        classname: 'bg-danger text-light',
-        delay: 2000,
-        autohide: true
-      });
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Select Version'});
     }
 
   }
@@ -103,10 +91,6 @@ export class DownloadDocumentComponent implements OnInit {
     )
 
     this.modalService.dismissAll();
-    this.toastService.show('SuccessFully Downloaded', {
-      classname: 'bg-success text-light',
-      delay: 2000,
-      autohide: true
-    });
+    this.messageService.add({severity:'success', summary: 'Download', detail: 'Successfully Downloaded'});
   }
 }
