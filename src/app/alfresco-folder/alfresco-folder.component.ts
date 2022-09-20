@@ -42,7 +42,7 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
   constructor(private alfrescoFolderApi: AlfrescoFolderApi, private toastService: ToastService,
-    private alfrescoDocAPI: AlfrescoDocumentApi,private messageService: MessageService) { }
+    private alfrescoDocAPI: AlfrescoDocumentApi,private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.getMainFolder();
@@ -106,9 +106,13 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
   delete(id: any) {
-    console.log("any:",id);
-    if (window.confirm('Are you sure you want to delete this folder')) {
-      this.alfrescoFolderApi.delete(id)
+
+    this.confirmationService.confirm({
+      message: "Are you sure that you want to proceed?",
+      header: 'Confirmation',
+      icon: "pi pi-exclamation-triangle",
+      accept: () => {
+        this.alfrescoFolderApi.delete(id)
         .then(res => {
 
           this.getMainFolder();
@@ -116,7 +120,15 @@ export class AlfrescoFolderComponent implements OnInit {
         }).catch(err => {
           console.log(err);
         })
-    }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "info",
+          summary: "Cancelled",
+          detail: "Deleteing Cancelled"
+        });
+      }
+    });
   }
 
 

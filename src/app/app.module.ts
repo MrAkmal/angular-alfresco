@@ -42,6 +42,8 @@ import {TreeTableModule} from 'primeng/treetable';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RippleModule} from 'primeng/ripple';
 
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +95,8 @@ import {RippleModule} from 'primeng/ripple';
     TreeSelectModule,
     FileUploadModule,
     TreeTableModule,
-    RippleModule
+    RippleModule,
+    ConfirmPopupModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

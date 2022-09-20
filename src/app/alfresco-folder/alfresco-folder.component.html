@@ -2,7 +2,10 @@
   <app-alfresco-create-folder></app-alfresco-create-folder>
   <br />
   <br />
-
+  <p-confirmDialog
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+  ></p-confirmDialog>
   <p-treeTable [value]="folders" [columns]="cols">
     <ng-template pTemplate="header" let-columns>
       <tr>

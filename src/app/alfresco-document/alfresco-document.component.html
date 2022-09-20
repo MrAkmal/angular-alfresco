@@ -2,6 +2,10 @@
   <app-alfresco-document-create></app-alfresco-document-create>
   <br />
   <br />
+  <p-confirmDialog
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+  ></p-confirmDialog>
   <p-table [value]="documents" sortMode="multiple">
     <ng-template pTemplate="header">
       <tr>
@@ -14,7 +18,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-document let-rowIndex="rowIndex">
       <tr scope="row">
-        <td>{{rowIndex + 1}}</td>
+        <td>{{ rowIndex + 1 }}</td>
         <td>{{ document.name }}</td>
         <td>{{ document.size / (1024 * 1024) }} mB</td>
         <td>
@@ -28,12 +32,9 @@
           ></app-alfresco-document-update>
         </td>
         <td>
-          <!-- <p-button   type="button"   class="p-button-rounded p-button-danger" (click)="delete(document.documentId)" icon="pi pi-trash" label="Delete"></p-button> -->
-
           <button
             pButton
             pRipple
-
             (click)="delete(document.documentId)"
             type="button"
             icon="pi pi-trash"
@@ -44,4 +45,3 @@
     </ng-template>
   </p-table>
 </div>
-
