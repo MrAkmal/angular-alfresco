@@ -28,9 +28,12 @@
           ></app-alfresco-document-update>
         </td>
         <td>
+          <!-- <p-button   type="button"   class="p-button-rounded p-button-danger" (click)="delete(document.documentId)" icon="pi pi-trash" label="Delete"></p-button> -->
+                   
           <button
             pButton
             pRipple
+            
             (click)="delete(document.documentId)"
             type="button"
             icon="pi pi-trash"
@@ -41,3 +44,4 @@
     </ng-template>
   </p-table>
 </div>
+

@@ -40,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from "primeng/fileupload";
 import {TreeTableModule} from 'primeng/treetable';
 import { NodeService } from './nodeservice';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NodeService } from './nodeservice';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ConfirmDialogModule,
     AppRoutingModule,
     AccordionModule,
     MenubarModule,

@@ -5,7 +5,7 @@
 </select> -->
 <p-dropdown [options]="document.versions" [(ngModel)]="selectedVersion" placeholder="Select version"   [showClear]="true">
 </p-dropdown>
-<app-download-document 
+<app-download-document
   style="padding-left: 0.5rem"
   [documentId]="document.documentId"
   [selectedVersion]="selectedVersion"
