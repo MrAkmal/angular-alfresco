@@ -42,8 +42,9 @@ import {TreeTableModule} from 'primeng/treetable';
 import { CascadeSelectModule } from "primeng/cascadeselect";
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RippleModule} from 'primeng/ripple';
-
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,9 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
     FileUploadModule,
     TreeTableModule,
     RippleModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    DynamicDialogModule,
+    SidebarModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

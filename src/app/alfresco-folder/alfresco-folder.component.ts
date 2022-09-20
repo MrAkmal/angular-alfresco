@@ -1,11 +1,10 @@
 import { TreeNode } from 'primeng/api';
 import { AlfrescoFolderApi } from './../api/alfresco-document-api/alfresco-folder-api';
 import { Component, OnInit } from '@angular/core';
-import { AlfrescoFolder, AlfrescoFolderDTO } from './alfresco-folder-dto';
-import { ToastService } from '../_services/toast.service';
+import {  AlfrescoFolderDTO } from './alfresco-folder-dto';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
-import { ConfirmationService, Message, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-alfresco-folder',
   templateUrl: './alfresco-folder.component.html',
@@ -40,9 +39,11 @@ export class AlfrescoFolderComponent implements OnInit {
   ];
 
 
-
-  constructor(private alfrescoFolderApi: AlfrescoFolderApi, private toastService: ToastService,
-    private alfrescoDocAPI: AlfrescoDocumentApi,private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private alfrescoFolderApi: AlfrescoFolderApi,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+    ) { }
 
   ngOnInit() {
     this.getMainFolder();
@@ -113,13 +114,13 @@ export class AlfrescoFolderComponent implements OnInit {
       icon: "pi pi-exclamation-triangle",
       accept: () => {
         this.alfrescoFolderApi.delete(id)
-        .then(res => {
+          .then(res => {
 
-          this.getMainFolder();
-          this.messageService.add({severity:'error', summary: 'Deleted', detail: 'Successfully Deleted'});
-        }).catch(err => {
-          console.log(err);
-        })
+            this.getMainFolder();
+            this.messageService.add({ severity: 'error', summary: 'Deleted', detail: 'Successfully Deleted' });
+          }).catch(err => {
+            console.log(err);
+          })
       },
       reject: () => {
         this.messageService.add({
@@ -133,8 +134,6 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
 
-}
-function onNodeExpand(e: any, event: Event | undefined) {
-  throw new Error('Function not implemented.');
+
 }
 
