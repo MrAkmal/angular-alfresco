@@ -1,11 +1,10 @@
 import { TreeNode } from 'primeng/api';
 import { AlfrescoFolderApi } from './../api/alfresco-document-api/alfresco-folder-api';
 import { Component, OnInit } from '@angular/core';
-import { AlfrescoFolder, AlfrescoFolderDTO } from './alfresco-folder-dto';
-import { ToastService } from '../_services/toast.service';
+import { AlfrescoFolderDTO } from './alfresco-folder-dto';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
-import { ConfirmationService, Message, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-alfresco-folder',
   templateUrl: './alfresco-folder.component.html',
@@ -40,9 +39,10 @@ export class AlfrescoFolderComponent implements OnInit {
   ];
 
 
-
-  constructor(private alfrescoFolderApi: AlfrescoFolderApi, private toastService: ToastService,
-    private alfrescoDocAPI: AlfrescoDocumentApi,private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private alfrescoFolderApi: AlfrescoFolderApi,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit() {
     this.getMainFolder();
@@ -50,6 +50,7 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
   getMainFolder() {
+    this.folders = [];
     this.alfrescoFolderApi.getMainFolder()
       .then(res => {
         console.log(res);
@@ -106,35 +107,32 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
   delete(id: any) {
-
-    this.confirmationService.confirm({
-      message: "Are you sure that you want to proceed?",
-      header: 'Confirmation',
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
-        this.alfrescoFolderApi.delete(id)
-        .then(res => {
-
-          this.getMainFolder();
-          this.messageService.add({severity:'error', summary: 'Deleted', detail: 'Successfully Deleted'});
-        }).catch(err => {
-          console.log(err);
-        })
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: "info",
-          summary: "Cancelled",
-          detail: "Deleteing Cancelled"
-        });
-      }
-    });
+    this.messageService.clear('c');
+    this.alfrescoFolderApi.delete(id)
+      .then(res => {
+        this.getMainFolder();
+        this.messageService.add({ severity: 'error', summary: 'Deleted', detail: 'Successfully Deleted' });
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
 
+  showConfirm(id:any) {
+    this.messageService.clear();
+    this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure?',
+     detail: 'Confirm to proceed',id:id });
+  }
 
-}
-function onNodeExpand(e: any, event: Event | undefined) {
-  throw new Error('Function not implemented.');
+
+  onReject() {
+    this.messageService.clear('c');
+    this.messageService.add({
+      severity: "info",
+      summary: "Cancelled",
+      detail: "Deleteing Cancelled"
+    });
+  }
+
 }
 

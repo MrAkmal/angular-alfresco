@@ -1,28 +1,34 @@
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="downloadForm" *ngIf="downloadForm">
-      <div class="mb-3">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-file"></i></span>
-          <input
-            type="text"
-            formControlName="name"
-            pInputText
-            placeholder="File name"
-          />
-        </div>
+<button
+  (click)="showModalDialog()"
+  pButton
+  pRipple
+  type="button"
+  icon="pi pi-download"
+  class="p-button-rounded p-button-success p-button-outlined"
+></button>
+<p-dialog
+  header="Document Download"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [style]="{ width: '50vw', height: '40vh' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="downloadForm" *ngIf="downloadForm">
+    <div class="mb-3">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-file"></i></span>
+        <input
+          type="text"
+          formControlName="name"
+          pInputText
+          placeholder="File name"
+        />
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
     <button
       pButton
       pRipple
@@ -32,14 +38,5 @@
       (click)="download()"
       class="p-button p-button-success p-button-sm"
     ></button>
-  </div>
-</ng-template>
-
-<button
-  pButton
-  pRipple
-  type="button"
-  icon="pi pi-download"
-  (click)="open(content)"
-  class="p-button-rounded p-button-success p-button-outlined"
-></button>
+  </ng-template>
+</p-dialog>
