@@ -22,9 +22,6 @@ export class AlfrescoDocumentComponent implements OnInit {
   msgs: Message[] = [];
 
 
-  showSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
-  }
 
   constructor(private primengConfig: PrimeNGConfig, private http: HttpClient, private alfrescoDocAPI: AlfrescoDocumentApi, private toastService: ToastService,
     private modalService: NgbModal, private confirmationService: ConfirmationService, private messageService: MessageService) { }
@@ -45,37 +42,40 @@ export class AlfrescoDocumentComponent implements OnInit {
 
   delete(id: string) {
 
-    this.confirmationService.confirm({
-      message: "Are you sure that you want to proceed?",
-      header: 'Confirmation',
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
-        this.alfrescoDocAPI.delete(id)
-        .then(() => {
-          this.getAll();
-          this.messageService.add({severity:'error', summary: 'Deleted', detail: 'Successfully Deleted'});
-        }).catch((err: any) => {
-          console.log(err);
-          this.getAll();
-          this.toastService.show('Error Deleting', {
-            classname: 'bg-danger text-light',
-            delay: 2000,
-            autohide: true
-          });
-        })
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: "info",
-          summary: "Cancelled",
-          detail: "Deleteing Cancelled"
+    this.messageService.clear('c');
+
+    this.alfrescoDocAPI.delete(id)
+      .then(() => {
+        this.getAll();
+        this.messageService.add({ severity: 'error', summary: 'Deleted', detail: 'Successfully Deleted' });
+      }).catch((err: any) => {
+        console.log(err);
+        this.getAll();
+        this.toastService.show('Error Deleting', {
+          classname: 'bg-danger text-light',
+          delay: 2000,
+          autohide: true
         });
-      }
-    });
+      })
   }
 
 
 
+  showConfirm(id:any) {
+    this.messageService.clear();
+    this.messageService.add({ key: 'c', sticky: true,
+    severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed',id:id });
+  }
+
+
+  onReject() {
+    this.messageService.clear('c');
+    this.messageService.add({
+      severity: "info",
+      summary: "Cancelled",
+      detail: "Deleteing Cancelled"
+    });
+  }
 
 }
 
