@@ -1,11 +1,10 @@
+import { TreeNode } from 'primeng/api';
 import { AlfrescoFolderApi } from './../api/alfresco-document-api/alfresco-folder-api';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlfrescoFolder, AlfrescoFolderDTO } from './alfresco-folder-dto';
 import { ToastService } from '../_services/toast.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AlfrescoDocumentDTO } from '../alfresco-document/alfresco-document-dto';
 import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
-import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-alfresco-folder',
@@ -27,16 +26,20 @@ import { TreeNode } from 'primeng/api';
 })
 export class AlfrescoFolderComponent implements OnInit {
 
-  folders: AlfrescoFolder[] = [];
-
-
+  folders: TreeNode[] = [];
 
   folderDialog: boolean | undefined;
 
   submitted: boolean | undefined;
 
-  tableData: TreeNode[] = [];
-    cols: any[] = [];
+  cols = [
+    { field: 'id', header: 'Expand' },
+    { field: 'name', header: 'Name' },
+    { field: 'parentId', header: 'ParentId' },
+    { field: 'folderId', header: 'FolderId' }
+  ];
+
+  
 
   constructor(private alfrescoFolderApi: AlfrescoFolderApi, private toastService: ToastService,
     private alfrescoDocAPI: AlfrescoDocumentApi) { }
@@ -50,47 +53,48 @@ export class AlfrescoFolderComponent implements OnInit {
     this.alfrescoFolderApi.getMainFolder()
       .then(res => {
         console.log(res);
-        let result: AlfrescoFolder[] = [];
+        let result: TreeNode[] = [];
         this.folders = this.loadData(res, result);
-        console.log("result: ", this.folders);
+        console.log("folders:", this.folders)
       }).catch(err => {
         console.log(err);
       })
+
   }
 
-  loadData(res: AlfrescoFolder[], result: AlfrescoFolder[]): AlfrescoFolder[] {
+
+  loadData(res: AlfrescoFolderDTO[], result: TreeNode[]): TreeNode[] {
     for (let i = 0; i < res.length; i++) {
 
       result.push({
-        id: res[i].id,
-        name: res[i].name,
-        parentId: res[i].parentId,
-        folderId: res[i].folderId,
-        subFolders: this.getSubFolders(res[i].folderId),
-        documents: []
+        data: {
+          id: res[i].id,
+          name: res[i].name,
+          parentId: res[i].parentId,
+          folderId: res[i].folderId
+        },
+        children: this.getSubFolders(res[i].folderId)
       });
-
     }
 
     return result;
   }
 
-  getSubFolders(folderId: string): AlfrescoFolder[] {
-    let data: AlfrescoFolder[] = [];
+  getSubFolders(folderId: any): TreeNode[] {
+    let data: TreeNode[] = [];
     this.alfrescoFolderApi.getSubFolders(folderId)
       .then(res => {
         if (res != null) {
           for (let i = 0; i < res.length; i++) {
             data.push({
-              id: res[i].id,
-              name: res[i].name,
-              parentId: res[i].parentId,
-              folderId: res[i].folderId,
-              subFolders: this.getSubFolders(res[i].folderId),
-              documents: []
+              data: {
+                id: res[i].id,
+                name: res[i].name,
+                parentId: res[i].parentId,
+                folderId: res[i].folderId
+              },
+              children: this.getSubFolders(res[i].folderId)
             });
-
-
           }
         }
       }).catch(err => {
@@ -99,21 +103,10 @@ export class AlfrescoFolderComponent implements OnInit {
     return data;
   }
 
-  getAllDocuments(id: number): AlfrescoDocumentDTO[] {
-    let data: AlfrescoDocumentDTO[] = [];
-    this.alfrescoDocAPI.getDocumentByFolderId(id)
-      .then(res => {
-        if (res != null) {
-          data = res;
-          console.log("data:", data);
-        }
-      }).catch(err => {
-        console.log(err);
-      });
-    return data;
-  }
 
-  delete(id: string) {
+
+  delete(id: any) {
+    console.log("any:",id);
     if (window.confirm('Are you sure you want to delete this folder')) {
       this.alfrescoFolderApi.delete(id)
         .then(res => {
@@ -133,3 +126,7 @@ export class AlfrescoFolderComponent implements OnInit {
 
 
 }
+function onNodeExpand(e: any, event: Event | undefined) {
+  throw new Error('Function not implemented.');
+}
+
