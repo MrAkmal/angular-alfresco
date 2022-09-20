@@ -39,6 +39,7 @@ import { AlfrescoDocumentListComponent } from './alfresco-document/components/al
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from "primeng/fileupload";
 import {TreeTableModule} from 'primeng/treetable';
+import { NodeService } from './nodeservice';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,7 @@ import {TreeTableModule} from 'primeng/treetable';
     FileUploadModule,
     TreeTableModule
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService,NodeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
