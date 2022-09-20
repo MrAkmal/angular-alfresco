@@ -1,0 +1,5 @@
+:host ::ng-deep .p-menuitem-link-active {
+  background: #ffffff;
+  border: 1px solid #2196F3;
+  color: #2196F3;
+}

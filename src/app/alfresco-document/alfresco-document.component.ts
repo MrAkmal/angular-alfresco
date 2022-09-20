@@ -22,6 +22,10 @@ export class AlfrescoDocumentComponent implements OnInit {
   msgs: Message[] = [];
 
 
+  showSuccess() {
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+}
+
   constructor( private primengConfig: PrimeNGConfig,private http: HttpClient, private alfrescoDocAPI: AlfrescoDocumentApi, private toastService: ToastService,
     private modalService: NgbModal,private confirmationService: ConfirmationService,private messageService: MessageService) { }
 
@@ -46,7 +50,7 @@ export class AlfrescoDocumentComponent implements OnInit {
   //     header: 'Confirmation',
   //     icon: 'pi pi-exclamation-triangle',
   //     accept: () => {
-      
+
   //       this.alfrescoDocAPI.delete(id)
   //       .then(() => {
   //         this.getAll();
@@ -65,7 +69,7 @@ export class AlfrescoDocumentComponent implements OnInit {
   //         //   autohide: true
   //         // });
   //       })
-        
+
   //     },
   //     reject: () => {
   //       this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
@@ -77,11 +81,7 @@ export class AlfrescoDocumentComponent implements OnInit {
       this.alfrescoDocAPI.delete(id)
         .then(() => {
           this.getAll();
-          this.toastService.show('SuccessFully Deleted', {
-            classname: 'bg-danger text-light',
-            delay: 2000,
-            autohide: true
-          });
+          this.messageService.add({severity:'error', summary: 'Deleted', detail: 'Successfully Deleted'});
         }).catch((err: any) => {
           console.log(err);
           this.getAll();

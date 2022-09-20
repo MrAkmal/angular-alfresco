@@ -8,6 +8,7 @@ import { AlfrescoDocumentApi } from 'src/app/api/alfresco-document-api/alfreco-d
 import { AlfrescoFolderApi } from 'src/app/api/alfresco-document-api/alfresco-folder-api';
 import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoDocumentComponent } from '../../alfresco-document.component';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-alfresco-document-update',
@@ -31,7 +32,8 @@ export class AlfrescoDocumentUpdateComponent implements OnInit {
     private toastService: ToastService,
     private modalService: NgbModal,
     private alfrescoDocApi: AlfrescoDocumentApi,
-    private alfrescoDoc: AlfrescoDocumentComponent) {
+    private alfrescoDoc: AlfrescoDocumentComponent,
+    private messageService: MessageService) {
 
     this.documentForm = this.fb.group({
     });
@@ -55,11 +57,7 @@ export class AlfrescoDocumentUpdateComponent implements OnInit {
       this.alfrescoDocApi.update(this.multipartFile, this.documentId)
         .then(res => {
           this.modalService.dismissAll();
-          this.toastService.show('SuccessFully Updated', {
-            classname: 'bg-info text-light',
-            delay: 2000,
-            autohide: true
-          });
+          this.messageService.add({severity:'info', summary: 'Updated', detail: 'Successfully Updated'});
           this.alfrescoDoc.getAll();
           console.log(res);
         }).catch(err => {

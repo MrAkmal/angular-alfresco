@@ -40,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from "primeng/fileupload";
 import {TreeTableModule} from 'primeng/treetable';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {RippleModule} from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     HttpClientModule,
     TreeSelectModule,
     FileUploadModule,
-    TreeTableModule
+    TreeTableModule,
+    RippleModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

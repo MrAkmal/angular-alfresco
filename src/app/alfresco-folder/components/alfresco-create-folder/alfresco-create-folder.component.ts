@@ -6,7 +6,7 @@ import { AlfrescoFolderApi } from 'src/app/api/alfresco-document-api/alfresco-fo
 import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoFolderDTO } from '../../alfresco-folder-dto';
 import { AlfrescoFolderComponent } from '../../alfresco-folder.component';
-
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-alfresco-create-folder',
   templateUrl: './alfresco-create-folder.component.html',
@@ -23,7 +23,8 @@ export class AlfrescoCreateFolderComponent implements OnInit {
     private toastService: ToastService,
     private modalService: NgbModal,
     private alfrescoFolderApi: AlfrescoFolderApi,
-    private alfrescoFolderComponent: AlfrescoFolderComponent) {
+    private alfrescoFolderComponent: AlfrescoFolderComponent,
+    private messageService: MessageService) {
 
     this.folderForm = this.fb.group({
       name: ['', Validators.required],
@@ -52,11 +53,7 @@ export class AlfrescoCreateFolderComponent implements OnInit {
           this.modalService.dismissAll();
 
 
-          this.toastService.show('SuccessFully Created', {
-            classname: 'bg-success text-light',
-            delay: 2000,
-            autohide: true
-          });
+          this.messageService.add({severity:'success', summary: 'Created', detail: 'Successfully Created'});
 
           this.alfrescoFolderComponent.getMainFolder();
           this.folderForm = this.fb.group({
