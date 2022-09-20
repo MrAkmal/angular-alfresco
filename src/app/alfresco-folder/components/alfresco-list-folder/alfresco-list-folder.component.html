@@ -30,11 +30,13 @@
             </td>
             <td>
               <button
+                pButton
+                pRipple
                 (click)="delete(folder.folderId)"
-                class="btn btn-outline-danger btn-sm"
-              >
-                Delete
-              </button>
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger"
+              ></button>
             </td>
           </tr>
         </ng-template>
@@ -47,9 +49,6 @@
           <app-alfresco-list-folder
             [folders]="folder.subFolders"
           ></app-alfresco-list-folder>
-          <!-- <app-alfresco-folder-document-list
-            [documents]="folder.documents"
-          ></app-alfresco-folder-document-list> -->
         </ng-template>
       </p-table>
     </div>

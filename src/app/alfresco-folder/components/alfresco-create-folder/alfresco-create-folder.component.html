@@ -11,37 +11,50 @@
   <div class="modal-body">
     <form [formGroup]="folderForm" *ngIf="folderForm">
       <div class="mb-3">
-        <label for="name">Name</label>
-        <input
-          class="form-control"
-          type="text"
-          id="name"
-          formControlName="name"
-        />
+        <label for="name">Folder Name</label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-folder"></i></span>
+          <input
+            type="text"
+            formControlName="name"
+            pInputText
+            placeholder="Folder name"
+          />
+        </div>
       </div>
       <div class="mb-3">
         <label for="parentFolderId">Select Folder</label>
-        <select
-          class="form-control"
+        <p-dropdown
+          [options]="folders"
           formControlName="parentFolderId"
-          id="parentFolderId"
+          placeholder="Select Folder"
+          [style]="{ width: '100%' }"
+          optionLabel="name"
+          optionValue="folderId"
+          [showClear]="true"
         >
-        <option [value]="0">
-          Root Folder
-        </option>
-          <option *ngFor="let folder of folders" [value]="folder.folderId">
-            {{ folder.name }}
-          </option>
-        </select>
+        </p-dropdown>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="save()">
-      Save
-    </button>
+    <button
+  pButton
+  pRipple
+  type="button"
+  label="Save"
+  icon="pi pi-save"
+  (click)="save()"
+  class="p-button p-button-primary p-button-sm"
+></button>
   </div>
 </ng-template>
-<button class="btn btn-primary btn-sm" (click)="open(content)">
-   Add
-</button>
+<button
+  pButton
+  pRipple
+  type="button"
+  label="Add"
+  icon="pi pi-plus"
+  (click)="open(content)"
+  class="p-button p-button-primary p-button-sm"
+></button>

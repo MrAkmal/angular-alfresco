@@ -43,15 +43,15 @@ export class AlfrescoCreateFolderComponent implements OnInit {
   save() {
 
     const val = this.folderForm.value;
-    console.log("value: ", val.name, val.parentId);
+    console.log("value: ", val.name, val.parentFolderId);
 
-    if (val.name && val.parentFolderId) {
+    if (val.name && val.parentFolderId != null) {
       this.alfrescoFolderApi.save(val.name, val.parentFolderId)
         .then((res: any) => {
           console.log("response: ", res);
           this.modalService.dismissAll();
 
-          
+
           this.toastService.show('SuccessFully Created', {
             classname: 'bg-success text-light',
             delay: 2000,
@@ -63,7 +63,7 @@ export class AlfrescoCreateFolderComponent implements OnInit {
             name: ['', Validators.required],
             parentFolderId: ''
           });
-          this.folders=[];
+          this.folders = [];
 
         }).catch((err: any) => {
           console.log(err);
@@ -76,8 +76,20 @@ export class AlfrescoCreateFolderComponent implements OnInit {
   getAllFolder() {
     this.alfrescoFolderApi.getAll()
       .then(res => {
-        console.log(res);
-        this.folders = res;
+        if (res != null) {
+          res.push({
+            name: "Root Folder",
+            folderId: 0
+          });
+          this.folders = res;
+        }else{
+          this.folders.push({
+            name: "Root Folder",
+            folderId: '0',
+            id: 0,
+            parentId: ''
+          });
+        }
       }).catch(err => {
         console.log(err);
       })

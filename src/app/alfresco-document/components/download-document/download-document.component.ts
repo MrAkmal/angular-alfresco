@@ -53,9 +53,18 @@ export class DownloadDocumentComponent implements OnInit {
     const val = this.downloadForm.value;
     if (this.selectedVersion && this.documentId && val.name) {
       this.downloadFile(this.documentId, val.name);
-    } else if (!val.name) {
+    }
+    else if (!this.selectedVersion && !val.name) {
       this.modalService.dismissAll();
-      this.toastService.show('Please Enter Name File', {
+      this.toastService.show('Please Enter File Name and Select Version', {
+        classname: 'bg-danger text-light',
+        delay: 2000,
+        autohide: true
+      });
+    }
+    else if (!val.name) {
+      this.modalService.dismissAll();
+      this.toastService.show('Please Enter File Name', {
         classname: 'bg-danger text-light',
         delay: 2000,
         autohide: true

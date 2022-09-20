@@ -1,10 +1,10 @@
-<!-- <select class="form-control-sm" [(ngModel)]="selectedVersion" style="width: 30%;padding-top: 1rem;"> -->
-  <!-- <option *ngFor="let version of document.versions" [value]="version" > -->
-    <p-dropdown [options]="document.versions" [(ngModel)]="selectedVersion" placeholder="Select version"   [showClear]="true">
-    </p-dropdown>
-    <!-- {{ version }} -->
-  <!-- </option> -->
-<!-- </select> -->
+<!-- <select class="form-control-sm" [(ngModel)]="selectedVersion" style="width: 30%;padding-top: 1rem;">
+  <option *ngFor="let version of document.versions" [value]="version">
+    {{ version }}
+  </option>
+</select> -->
+<p-dropdown [options]="document.versions" [(ngModel)]="selectedVersion" placeholder="Select version"   [showClear]="true">
+</p-dropdown>
 <app-download-document
   style="padding-left: 0.5rem"
   [documentId]="document.documentId"

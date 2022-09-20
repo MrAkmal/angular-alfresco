@@ -6,9 +6,7 @@ import { AlfrescoDocumentApi } from 'src/app/api/alfresco-document-api/alfreco-d
 import { ToastService } from 'src/app/_services/toast.service';
 import { AlfrescoDocumentDTO } from '../../alfresco-document-dto';
 
-export interface Version{
-  version:string;
-}
+
 @Component({
   selector: 'app-alfresco-document-list',
   templateUrl: './alfresco-document-list.component.html',
@@ -27,7 +25,6 @@ export class AlfrescoDocumentListComponent implements OnInit {
     versions: []
   };
   selectedVersion!: string;
-  versions:Version[]=[];
 
 
   constructor(private http: HttpClient,
@@ -37,11 +34,6 @@ export class AlfrescoDocumentListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.document.versions.forEach(element=>{
-        this.versions.push({version:element});
-    });
-
-    console.log("ver:",this.versions);
   }
 
 

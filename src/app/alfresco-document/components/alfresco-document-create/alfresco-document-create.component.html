@@ -20,13 +20,17 @@
         />
       </div>
       <div class="mb-3">
-        <label for="folderId">Select Folder</label>
-        <select class="form-control" formControlName="folderId" id="folderId">
-          <option [value]="0">Root Folder</option>
-          <option *ngFor="let folder of folders" [value]="folder.folderId">
-            {{ folder.name }}
-          </option>
-        </select>
+        <label for="file">Folder</label>
+        <p-dropdown
+          [options]="folders"
+          formControlName="folderId"
+          placeholder="Select Folder"
+          [style]="{ width: '100%' }"
+          optionLabel="name"
+          optionValue="folderId"
+          [showClear]="true"
+        >
+        </p-dropdown>
       </div>
     </form>
   </div>
@@ -36,6 +40,7 @@
       pRipple
       type="button"
       label="Save"
+      icon="pi pi-save"
       (click)="save()"
       class="p-button p-button-primary p-button-sm"
     ></button>

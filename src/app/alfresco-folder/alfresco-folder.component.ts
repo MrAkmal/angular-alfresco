@@ -5,6 +5,7 @@ import { ToastService } from '../_services/toast.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AlfrescoDocumentDTO } from '../alfresco-document/alfresco-document-dto';
 import { AlfrescoDocumentApi } from '../api/alfresco-document-api/alfreco-document-api';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-alfresco-folder',
@@ -33,6 +34,9 @@ export class AlfrescoFolderComponent implements OnInit {
   folderDialog: boolean | undefined;
 
   submitted: boolean | undefined;
+
+  tableData: TreeNode[] = [];
+    cols: any[] = [];
 
   constructor(private alfrescoFolderApi: AlfrescoFolderApi, private toastService: ToastService,
     private alfrescoDocAPI: AlfrescoDocumentApi) { }

@@ -44,16 +44,16 @@ export class AlfrescoDocumentCreateComponent implements OnInit {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  onChange(event:any) {
+  onChange(event: any) {
     this.multipartFile = event.target.files[0];
   }
 
   save() {
-    
-    const val = this.documentForm.value;
-    console.log("value: ",val.folderId);
 
-    if (val.folderId) {
+    const val = this.documentForm.value;
+    console.log("value: ", val.folderId);
+
+    if (this.multipartFile && val.folderId!=null) {
       this.alfrescoDocApi.save(this.multipartFile, val.folderId)
         .then(res => {
           this.modalService.dismissAll();
@@ -79,8 +79,20 @@ export class AlfrescoDocumentCreateComponent implements OnInit {
   getAllFolder() {
     this.alfrescoFolderApi.getAll()
       .then(res => {
-        console.log(res);
-        this.folders = res;
+        if (res != null) {
+          res.push({
+            name: "Root Folder",
+            folderId: 0
+          });
+          this.folders = res;
+        }else{
+          this.folders.push({
+            name: "Root Folder",
+            folderId: '0',
+            id: 0,
+            parentId: ''
+          });
+        }
       }).catch(err => {
         console.log(err);
       })
