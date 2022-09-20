@@ -5,16 +5,16 @@
   <p-table [value]="documents" sortMode="multiple">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Id">id</th>
+        <th pSortableColumn="Id">#</th>
         <th pSortableColumn="Name">Name</th>
         <th pSortableColumn="Size">Size</th>
         <th pSortableColumn="Versions">Versions</th>
         <th pSortableColumn="Settings" colspan="2">Settings</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-document>
+    <ng-template pTemplate="body" let-document let-rowIndex="rowIndex">
       <tr scope="row">
-        <td>{{ document.id }}</td>
+        <td>{{rowIndex + 1}}</td>
         <td>{{ document.name }}</td>
         <td>{{ document.size / (1024 * 1024) }} mB</td>
         <td>

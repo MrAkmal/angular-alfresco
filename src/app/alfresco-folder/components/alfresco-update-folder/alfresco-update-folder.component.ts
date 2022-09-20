@@ -89,8 +89,20 @@ export class AlfrescoUpdateFolderComponent implements OnInit {
   getAllFolder() {
     this.alfrescoFolderApi.getAll()
       .then(res => {
-        console.log(res);
-        this.folders = res;
+        if (res != null) {
+          res.push({
+            name: "Root Folder",
+            folderId: 0
+          });
+          this.folders = res;
+        }else{
+          this.folders.push({
+            name: "Root Folder",
+            folderId: '0',
+            id: 0,
+            parentId: ''
+          });
+        }
       }).catch(err => {
         console.log(err);
       })

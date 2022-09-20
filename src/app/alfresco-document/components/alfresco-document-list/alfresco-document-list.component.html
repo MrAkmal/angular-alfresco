@@ -1,9 +1,11 @@
-<select class="form-control-sm" [(ngModel)]="selectedVersion" style="width: 30%;padding-top: 1rem;">
+<!-- <select class="form-control-sm" [(ngModel)]="selectedVersion" style="width: 30%;padding-top: 1rem;">
   <option *ngFor="let version of document.versions" [value]="version">
     {{ version }}
   </option>
-</select>
-<app-download-document
+</select> -->
+<p-dropdown [options]="document.versions" [(ngModel)]="selectedVersion" placeholder="Select version"   [showClear]="true">
+</p-dropdown>
+<app-download-document 
   style="padding-left: 0.5rem"
   [documentId]="document.documentId"
   [selectedVersion]="selectedVersion"

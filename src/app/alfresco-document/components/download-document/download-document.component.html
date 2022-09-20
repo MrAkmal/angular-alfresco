@@ -10,17 +10,36 @@
   <div class="modal-body">
     <form [formGroup]="downloadForm" *ngIf="downloadForm">
       <div class="mb-3">
-        <label for="name">FileName</label>
-        <input class="form-control" type="text" formControlName="name" />
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-file"></i></span>
+          <input
+            type="text"
+            formControlName="name"
+            pInputText
+            placeholder="File name"
+          />
+        </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="download()">
-      Download
-    </button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-download"
+      label="Download"
+      (click)="download()"
+      class="p-button p-button-success p-button-sm"
+    ></button>
   </div>
 </ng-template>
 
-<button pButton pRipple type="button" icon="pi pi-download" (click)="open(content)"
-class="p-button-rounded p-button-success p-button-outlined"></button>
+<button
+  pButton
+  pRipple
+  type="button"
+  icon="pi pi-download"
+  (click)="open(content)"
+  class="p-button-rounded p-button-success p-button-outlined"
+></button>
