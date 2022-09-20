@@ -33,6 +33,9 @@ export class AlfrescoDocumentComponent implements OnInit {
     this.getAll();
   }
 
+
+
+
   getAll() {
     this.alfrescoDocAPI.getAll()
       .then(res => {
@@ -45,15 +48,12 @@ export class AlfrescoDocumentComponent implements OnInit {
 
   delete(id: string) {
 
-    this.confirmationService.confirm({
-      message: "Are you sure that you want to proceed?",
-      header: 'Confirmation',
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
         this.alfrescoDocAPI.delete(id)
         .then(() => {
           this.getAll();
+          this.messageService.clear('c');
           this.messageService.add({severity:'error', summary: 'Deleted', detail: 'Successfully Deleted'});
+         
         }).catch((err: any) => {
           console.log(err);
           this.getAll();
@@ -63,17 +63,33 @@ export class AlfrescoDocumentComponent implements OnInit {
             autohide: true
           });
         })
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: "info",
-          summary: "Cancelled",
-          detail: "Deleteing Cancelled"
-        });
-      }
-    });
+
+     
+  
   }
 
+
+
+
+  showConfirm(id:any) {
+    this.messageService.clear();
+    this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed', id: id});
+  }
+
+
+
+onReject() {
+    this.messageService.clear('c');
+    this.messageService.add({
+      severity: "info",
+      summary: "Cancelled",
+      detail: "Deleting Cancelled"
+    });
+}
+
+clear() {
+    this.messageService.clear();
+}
 
 
 
